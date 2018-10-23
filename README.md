@@ -8,12 +8,12 @@
 
 ###necessario configurar variaveis de ambiente:
 
-- - `export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"`
-- - `export MAVEN_HOME="/etc/maven"`
+- `export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"`
+- `export MAVEN_HOME="/etc/maven"`
 
 #Rodando o projeto
 
 ##Para rodar o projeto:
-- - `cd ${Pasta-raiz-do-projeto}/${pasta-da-aplicação}`
-- - `mvn compile exec:java -Dexec.mainClass="com.${client|controllerSistem|server}.App" -Dexec.args="helloArgs HelloArgs"`
+- `cd ${Pasta-raiz-do-projeto}/${pasta-da-aplicação}`
+- `mvn compile exec:java -Dexec.mainClass="com.${client|controllerSistem|server}.App" -Dexec.args="helloArgs HelloArgs"`
   
