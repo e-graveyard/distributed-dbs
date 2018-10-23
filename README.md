@@ -14,6 +14,11 @@
 #Rodando o projeto
 
 ##Para rodar o projeto:
+
+1º executar as aplicações de servidor, utilizando os args para definir as portas.
+2º executar a aplicação controllerSistem, passando o endereço dos servidores atravez dos args
+3º executar as aplicações clientes passando o endereço do controllerSistem atravez do args
+
 - `cd ${Pasta-raiz-do-projeto}/${pasta-da-aplicação}`
 - `mvn compile exec:java -Dexec.mainClass="com.${client|controllerSistem|server}.App" -Dexec.args="helloArgs HelloArgs"`
   
