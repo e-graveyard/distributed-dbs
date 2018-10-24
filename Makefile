@@ -1,8 +1,11 @@
 MVN = mvn clean package
 
-target:
-	cd components/$(C) && $(MVN)
+build:
+	cd components/$(target) && $(MVN)
 
 run:
-	cd components/$(C)/target && \
-		java -cp $(C)-*.jar main.App
+	cd components/$(target)/target && \
+		java -cp $(target)-*.jar main.App $(filter-out $@, $(MAKECMDGOALS))
+
+%:
+	@:
