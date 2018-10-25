@@ -1,18 +1,17 @@
 package main;
 
-/**
- * Hello world!
- *
- */
 public class App
 {
 	public static void main( String[] args )
 	{
-		if(!args.equals("")){
-			for(String arg : args)
-				System.out.println(arg);
-		}
+        Server s = new Server();
 
-		System.out.println( "Hello World!" );
+        String message = "\n\nHi there. I'm server @name. Listening on port @port...";
+
+        message = message
+            .replace("@name", s.getName())
+            .replace("@port", Integer.toString(s.getPort()));
+
+        System.out.println(message);
 	}
 }
