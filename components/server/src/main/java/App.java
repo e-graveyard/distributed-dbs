@@ -13,5 +13,7 @@ public class App
             .replace("@port", Integer.toString(s.getPort()));
 
         System.out.println(message);
+
+        s.listen();
 	}
 }
