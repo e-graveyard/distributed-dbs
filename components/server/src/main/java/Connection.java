@@ -2,7 +2,10 @@ package main;
 
 import java.net.Socket;
 import java.util.Scanner;
+
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Connection implements Runnable
 {
@@ -17,11 +20,12 @@ public class Connection implements Runnable
 
     public void run()
     {
-        try(Scanner s = new Scanner(this.client.getInputStream()))
+        try(BufferedReader data = new BufferedReader(new InputStreamReader(this.client.getInputStream())))
         {
-            while(s.hasNextLine())
+            String message;
+            while((message = data.readLine()) != null)
             {
-                System.out.println(s.nextLine());
+                System.out.println(message);
             }
         }
         catch(IOException e)
