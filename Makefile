@@ -1,4 +1,4 @@
-MVN = mvn clean package
+MVN = mvn clean compile assembly:single
 
 build:
 	cd components/$(target) && $(MVN)
