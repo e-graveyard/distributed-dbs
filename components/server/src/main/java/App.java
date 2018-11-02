@@ -10,16 +10,17 @@ public class App
 
         try
         {
-            String message = "\n\nHi there. I'm server @name. Listening on port @port..."
-                .replace("@name", s.getName())
-                .replace("@port", Integer.toString(s.getPort()));
-            System.out.println(message);
+            Logger.info("Hello!");
+            Logger.info("I'm server *purple@name*normal."
+                    .replace("@name", s.getName()));
+            Logger.info("Listening on port *purple@port*normal."
+                    .replace("@port", Integer.toString(s.getPort())));
 
             s.listen();
         }
         catch(IOException e)
         {
-            System.out.println("Something went wrong...\n");
+            Logger.error("Something went wrong.\n");
             e.printStackTrace();
         }
     }
