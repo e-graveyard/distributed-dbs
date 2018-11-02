@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Random;
 import java.io.IOException;
 
 import java.net.Socket;
@@ -14,11 +15,37 @@ public class Server
     private String name;
     private List<Socket> connections;
 
+    private static Random rand = new Random();
+    private static final int MAX_PORT_NUMBER = 65535;
+    private static final int MIN_PORT_NUMBER = 5000;
+
     public Server()
     {
-        this.port = Utils.generateValidPort();
-        this.name = Utils.generateUniqueName();
+        this.port = generateValidPort();
+        this.name = generateUniqueName();
         this.connections = new ArrayList<>();
+    }
+
+    public static String generateUniqueName()
+    {
+        String[] humanNames = {
+            "JAMES", "JOHN", "ROBERT", "MICHAEL", "WILLIAM",
+            "DAVID", "RICHARD", "CHARLES", "JOSEPH", "THOMAS",
+            "MARY", "LINDA", "ELIZABETH", "SUSAN", "MARGARETH",
+            "DOROTHY", "LISA", "NANCY", "DONNA", "MICHELLE"
+        };
+
+        int index = rand.nextInt(humanNames.length);
+
+        String name = humanNames[index];
+        String numb = Integer.toString(rand.nextInt(1000000));
+
+        return (name + "-" + numb);
+    }
+
+    public static int generateValidPort()
+    {
+        return rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
     }
 
     public String getName()
