@@ -24,6 +24,7 @@ public class Connection implements Runnable
         switch(request.getKind())
         {
             case "Ping":
+                Logger.info("Server has received a ping.");
                 response = request.pong();
                 break;
 
