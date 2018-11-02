@@ -24,7 +24,10 @@ public class Connection implements Runnable
         switch(handler.getKind())
         {
             case "Ping":
-                Logger.info("Server has received a ping.");
+                Logger.info("Server has received a ping from *purple"
+                    + handler.getSender()
+                    + "*normal.");
+
                 response = handler.pong();
                 break;
 
@@ -32,6 +35,10 @@ public class Connection implements Runnable
                 break;
 
             case "GetRecord":
+                break;
+
+            default:
+                Logger.warning("Unknown message kind. Ignoring.");
                 break;
         }
 
@@ -46,7 +53,6 @@ public class Connection implements Runnable
             while((message = data.readLine()) != null)
             {
                 response = this.handle(new Handler(message));
-                System.out.println(response);
             }
         }
         catch(IOException e)
