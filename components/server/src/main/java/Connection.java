@@ -18,14 +18,34 @@ public class Connection implements Runnable
         this.server = server;
     }
 
+    private String handle(Request request)
+    {
+        String response = null;
+        switch(request.getKind())
+        {
+            case "Ping":
+                response = request.pong();
+                break;
+
+            case "CreateRecord":
+                break;
+
+            case "GetRecord":
+                break;
+        }
+
+        return response;
+    }
+
     public void run()
     {
         try(BufferedReader data = new BufferedReader(new InputStreamReader(this.client.getInputStream())))
         {
-            String message;
+            String message, response;
             while((message = data.readLine()) != null)
             {
-                System.out.println(message);
+                response = this.handle(new Request(message));
+                System.out.println(response);
             }
         }
         catch(IOException e)
