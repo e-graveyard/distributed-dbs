@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class App
 {
-	public static void main( String[] args )
-	{
+    public static void main( String[] args )
+    {
         Server s = new Server();
 
         try
@@ -22,5 +22,5 @@ public class App
             System.out.println("Something went wrong...\n");
             e.printStackTrace();
         }
-	}
+    }
 }
