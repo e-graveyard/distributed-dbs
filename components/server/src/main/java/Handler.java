@@ -2,34 +2,31 @@ package main;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonElement;
 
 class Handler
 {
     private Gson gson;
-    private String payload;
+    private JsonObject payload;
 
     public Handler(String payload)
     {
-        this.payload = payload;
         this.gson = new Gson();
-    }
-
-    private JsonElement getKeyValue(String keyName)
-    {
-        JsonObject obj = this.gson.fromJson(this.payload, JsonObject.class);
-        JsonElement key = obj.get(keyName);
-
-        return key;
+        this.payload = gson.fromJson(payload, JsonObject.class);
     }
 
     public String getKind()
     {
-        return this.getKeyValue("kind").getAsString();
+        return payload.get("kind").getAsString();
+    }
+
+    public String getSender()
+    {
+        JsonObject envelope = payload.get("envelope").getAsJsonObject();
+        return envelope.get("from").getAsString();
     }
 
     public String pong()
     {
-        return this.gson.toJson(new Response("Response", "Pong"));
+        return gson.toJson(new Response("Response", "Pong"));
     }
 }
