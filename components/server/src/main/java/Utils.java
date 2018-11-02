@@ -23,15 +23,11 @@ public class Utils
         String name = humanNames[index];
         String numb = Integer.toString(rand.nextInt(1000000));
 
-        String uniqueName = name + "-" + numb;
-
         return (name + "-" + numb);
     }
 
     public static int generateValidPort()
     {
-        int port = rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
-
-        return port;
+        return rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
     }
 }
