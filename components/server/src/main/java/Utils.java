@@ -13,7 +13,9 @@ public class Utils
     {
         String[] humanNames = {
             "JAMES", "JOHN", "ROBERT", "MICHAEL", "WILLIAM",
-            "DAVID", "RICHARD", "CHARLES", "JOSEPH", "THOMAS"
+            "DAVID", "RICHARD", "CHARLES", "JOSEPH", "THOMAS",
+            "MARY", "LINDA", "ELIZABETH", "SUSAN", "MARGARETH",
+            "DOROTHY", "LISA", "NANCY", "DONNA", "MICHELLE"
         };
 
         int index = rand.nextInt(humanNames.length);
