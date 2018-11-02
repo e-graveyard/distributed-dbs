@@ -15,11 +15,21 @@ class Request
         this.gson = new Gson();
     }
 
-    public String getKind()
+    private JsonElement getKeyValue(String keyName)
     {
         JsonObject obj = this.gson.fromJson(this.payload, JsonObject.class);
-        JsonElement kind = obj.get("kind");
+        JsonElement key = obj.get(keyName);
 
-        return kind.getAsString();
+        return key;
+    }
+
+    public String getKind()
+    {
+        return this.getKeyValue("kind").getAsString();
+    }
+
+    public String pong()
+    {
+        return this.gson.toJson(new Response("Response", "Pong"));
     }
 }
