@@ -65,9 +65,8 @@ public class Server
             while(true)
             {
                 Socket client = socket.accept();
-                System.out.println("New connection established.");
-
                 this.connections.add(client);
+
                 Connection c = new Connection(client, this);
                 new Thread(c).start();
             }
