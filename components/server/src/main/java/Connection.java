@@ -18,14 +18,14 @@ public class Connection implements Runnable
         this.server = server;
     }
 
-    private String handle(Request request)
+    private String handle(Handler handler)
     {
         String response = null;
-        switch(request.getKind())
+        switch(handler.getKind())
         {
             case "Ping":
                 Logger.info("Server has received a ping.");
-                response = request.pong();
+                response = handler.pong();
                 break;
 
             case "CreateRecord":
@@ -45,7 +45,7 @@ public class Connection implements Runnable
             String message, response;
             while((message = data.readLine()) != null)
             {
-                response = this.handle(new Request(message));
+                response = this.handle(new Handler(message));
                 System.out.println(response);
             }
         }

@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
 
-class Request
+class Handler
 {
     private Gson gson;
     private String payload;
 
-    public Request(String payload)
+    public Handler(String payload)
     {
         this.payload = payload;
         this.gson = new Gson();
