@@ -20,18 +20,22 @@ public class Connection implements Runnable
 
     private String handle(Handler handler)
     {
+        String sender = handler.getSender();
         String response = null;
         switch(handler.getKind())
         {
             case "Ping":
                 Logger.info("Server has received a ping from *purple"
-                    + handler.getSender()
-                    + "*normal.");
+                    + sender + "*normal.");
 
                 response = handler.pong();
                 break;
 
             case "CreateRecord":
+                Book book = handler.getBookInformation();
+
+                Database db = new Database();
+                db.create(book);
                 break;
 
             case "GetRecord":
