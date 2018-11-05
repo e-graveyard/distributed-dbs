@@ -14,14 +14,24 @@ class Handler
         this.payload = gson.fromJson(payload, JsonObject.class);
     }
 
-    public String getKeyAsString(JsonObject obj, String key)
+    private String getKeyAsString(JsonObject obj, String key)
     {
         return obj.get(key).getAsString();
     }
 
-    public JsonObject getKeyAsObject(JsonObject obj, String key)
+    private JsonObject getKeyAsObject(JsonObject obj, String key)
     {
         return obj.get(key).getAsJsonObject();
+    }
+
+    private JsonObject getData()
+    {
+        return getKeyAsObject(payload, "data");
+    }
+
+    private JsonObject getEnvelope()
+    {
+        return getKeyAsObject(payload, "envelope");
     }
 
     public String getKind()
@@ -31,14 +41,20 @@ class Handler
 
     public String getSender()
     {
-        JsonObject envelope = getKeyAsObject(payload, "envelope");
-        return getKeyAsString(envelope, "from");
+        return getKeyAsString(getEnvelope(), "from");
+    }
+
+    public int getId()
+    {
+        return Integer.parseInt(getKeyAsString(getData(), "id"));
     }
 
     public Book getBookInformation()
     {
-        JsonObject data = getKeyAsObject(payload, "data");
-        Book book = gson.fromJson(data.toString(), Book.class);
+        Book book = gson.fromJson(
+                getData().toString(),
+                Book.class
+                );
 
         return book;
     }
