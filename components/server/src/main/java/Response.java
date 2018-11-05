@@ -2,7 +2,7 @@ package main;
 
 import java.util.HashMap;
 
-public class Response
+class Response
 {
     private String kind;
     private HashMap<String, String> data;

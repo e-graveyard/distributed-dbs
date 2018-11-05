@@ -1,6 +1,6 @@
 package main;
 
-public class Book
+class Book
 {
     private String title;
     private String author;

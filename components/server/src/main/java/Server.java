@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Server
+class Server
 {
     private int port;
     private String name;
