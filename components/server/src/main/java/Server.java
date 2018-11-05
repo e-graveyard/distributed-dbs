@@ -9,6 +9,9 @@ import java.net.ServerSocket;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.lang.Runtime;
+import java.lang.InterruptedException;
+
 class Server
 {
     private int port;
@@ -45,7 +48,13 @@ class Server
 
     public static int generateValidPort()
     {
-        return rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
+        int port = 0;
+        while(port < MIN_PORT_NUMBER)
+        {
+            port = rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
+        }
+
+        return port;
     }
 
     public String getName()
@@ -62,6 +71,20 @@ class Server
     {
         try(ServerSocket socket = new ServerSocket(this.port))
         {
+            Runtime.getRuntime().addShutdownHook(
+                    new Thread()
+                    {
+                       @Override
+                       public void run()
+                       {
+                           System.out.println("");
+                           Logger.warning("SIGINT caught.");
+                           Logger.info("Exiting...");
+
+                           return;
+                       }
+                    });
+
             while(true)
             {
                 Socket client = socket.accept();
