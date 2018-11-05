@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Connection implements Runnable
+class Connection implements Runnable
 {
     private Socket client;
     private Server server;
@@ -32,13 +32,15 @@ public class Connection implements Runnable
                 break;
 
             case "CreateRecord":
-                Book book = handler.getBookInformation();
-
-                Database db = new Database();
-                db.create(book);
                 break;
 
-            case "GetRecord":
+            case "ReadRecord":
+                break;
+
+            case "UpdateRecord":
+                break;
+
+            case "DeleteRecord":
                 break;
 
             default:
