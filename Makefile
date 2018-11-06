@@ -10,5 +10,9 @@ run:
 	cd components/$(target)/target && \
 		java -cp $(target)-*.jar main.App $(filter-out $@, $(MAKECMDGOALS))
 
+start: 
+	cd components/$(target) && \
+		mvn compile exec:java -Dexec.mainClass="aps.App"
+
 %:
 	@:
