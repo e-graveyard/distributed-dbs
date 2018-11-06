@@ -11,7 +11,7 @@ public class App
 	public static void main( String[] args )
 	{
 		//conecção com cliente
-		System.out.println("........Iniciando aplicação Controller");
+		System.out.println("........Iniciando aplicação Controller!");
 		try{
 			System.out.println("........Connectando ao cliente!!!");
 			ServerSocket serverSocket = new ServerSocket(9999);
