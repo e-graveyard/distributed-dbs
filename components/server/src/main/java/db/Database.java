@@ -1,8 +1,10 @@
 package main;
 
-import db.Config;
-
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 class Database
 {
@@ -39,54 +41,131 @@ class Database
         }
     }
 
-    private boolean query(String verb, String statement, Object params)
+    public Boolean create(Book book)
     {
-        boolean status = false;
+        boolean success;
 
         Connection conn = getConnection();
         if(conn == null)
-            return status;
+            return null;
 
-        PreparedStatement pst = conn.prepareStatement(statement);
-
-        switch(verb)
-        {
-            case "create":
-                break;
-
-            case "read":
-                pst.setInt(1, (int)params);
-                break;
-
-            case "update":
-                break;
-
-            case "delete":
-                break;
-        }
-    }
-
-    public void create(Book book)
-    {
         String statement = "INSERT INTO books (title, author, publication, isbn, pages) VALUES (?, ?, ?, ?, ?)";
-        boolean success = query("create", statement, book);
+
+        try
+        {
+            PreparedStatement pst = conn.prepareStatement(statement);
+            pst.setString(1, book.getTitle());
+            pst.setString(2, book.getAuthor());
+            pst.setString(3, book.getPublication());
+            pst.setString(4, book.getIsbn());
+            pst.setInt(5, book.getPages());
+
+            pst.executeUpdate();
+            pst.close();
+
+            success = true;
+        }
+        catch(SQLException ex)
+        {
+            success = false;
+        }
+
+        return Boolean.valueOf(success);
     }
 
-    public void read(int isbn)
+    public Book read(String isbn)
     {
+        Book book = null;
+
+        Connection conn = getConnection();
+        if(conn == null)
+            return null;
+
         String statement = "SELECT * FROM books WHERE isbn = ?";
-        boolean success = query("read", statement, isbn);
+
+        try
+        {
+            PreparedStatement pst = conn.prepareStatement(statement);
+            pst.setString(1, isbn);
+
+            ResultSet result = pst.executeQuery();
+            while(result.next())
+            {
+                book = new Book(
+                        result.getString("title"),
+                        result.getString("author"),
+                        result.getString("publication"),
+                        result.getString("isbn"),
+                        result.getInt("pages"));
+            }
+        }
+        catch (SQLException ex)
+        {
+            book = null;
+        }
+
+        return book;
     }
 
-    public void update(Book book)
+    public Boolean update(Book book)
     {
+        boolean success;
+
+        Connection conn = getConnection();
+        if(conn == null)
+            return null;
+
         String statement = "UPDATE book SET title = ?, author = ?, publication = ?, isbn = ?, pages = ? WHERE isbn = ?";
-        boolean success = query("update", statement, book);
+
+        try
+        {
+            PreparedStatement pst = conn.prepareStatement(statement);
+            pst.setString(1, book.getTitle());
+            pst.setString(2, book.getAuthor());
+            pst.setString(3, book.getPublication());
+            pst.setString(4, book.getIsbn());
+            pst.setInt(5, book.getPages());
+            pst.setString(6, book.getIsbn());
+
+            pst.executeUpdate();
+            pst.close();
+
+            success = true;
+
+        }
+        catch(SQLException ex)
+        {
+            success = false;
+        }
+
+        return Boolean.valueOf(success);
     }
 
-    public void delete(int isbn)
+    public Boolean delete(String isbn)
     {
-        String statement = "DELETE FROM books WHERE id = ?";
-        boolean success = query("delete", statement, isbn);
+        boolean success;
+
+        Connection conn = getConnection();
+        if(conn == null)
+            return null;
+
+        String statement = "DELETE FROM books WHERE isbn = ?";
+
+        try
+        {
+            PreparedStatement pst = conn.prepareStatement(statement);
+            pst.setString(1, isbn);
+
+            pst.executeUpdate();
+            pst.close();
+
+            success = true;
+        }
+        catch(SQLException ex)
+        {
+            success = false;
+        }
+
+        return Boolean.valueOf(success);
     }
 }
