@@ -16,7 +16,6 @@ class Server
 {
     private int port;
     private String name;
-    private List<Socket> connections;
 
     private static Random rand = new Random();
     private static final int MAX_PORT_NUMBER = 65535;
@@ -26,7 +25,6 @@ class Server
     {
         this.port = generateValidPort();
         this.name = generateUniqueName();
-        this.connections = new ArrayList<>();
     }
 
     public static String generateUniqueName()
@@ -88,8 +86,6 @@ class Server
             while(true)
             {
                 Socket client = socket.accept();
-                this.connections.add(client);
-
                 Connection c = new Connection(client, this);
                 new Thread(c).start();
             }
