@@ -10,7 +10,7 @@ clean:
 		rm -rf server/target
 
 db:
-	java -jar bin/h2.jar -tcp -pg -web
+	java -jar bin/h2.jar -tcp -pg -web -baseDir ~/h2db
 
 run:
 	cd components/$(target)/target && \
