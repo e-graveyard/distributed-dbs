@@ -20,8 +20,12 @@ class Connection implements Runnable
 
     private String handle(Handler handler)
     {
-        String sender = handler.getSender();
         String response = null;
+        Boolean success = null;
+
+        Database db = new Database();
+
+        String sender = handler.getSender();
         switch(handler.getKind())
         {
             case "Ping":
@@ -32,6 +36,7 @@ class Connection implements Runnable
                 break;
 
             case "CreateRecord":
+                success = db.create(handler.getBookInformation());
                 break;
 
             case "ReadRecord":
