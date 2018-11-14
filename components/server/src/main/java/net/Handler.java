@@ -44,9 +44,9 @@ class Handler
         return getKeyAsString(getEnvelope(), "from");
     }
 
-    public int getId()
+    public String getIsbn()
     {
-        return Integer.parseInt(getKeyAsString(getData(), "id"));
+        return getKeyAsString(getData(), "isbn");
     }
 
     public Book getBookInformation()
@@ -57,10 +57,5 @@ class Handler
                 );
 
         return book;
-    }
-
-    public String pong()
-    {
-        return gson.toJson(new Response("Response", "Pong"));
     }
 }
