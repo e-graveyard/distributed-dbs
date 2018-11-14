@@ -115,7 +115,7 @@ class Database
         if(conn == null)
             return null;
 
-        String statement = "UPDATE book SET title = ?, author = ?, publication = ?, isbn = ?, pages = ? WHERE isbn = ?";
+        String statement = "UPDATE book SET title = ?, author = ?, publication = ?, pages = ? WHERE isbn = ?";
 
         try
         {
@@ -123,9 +123,8 @@ class Database
             pst.setString(1, book.getTitle());
             pst.setString(2, book.getAuthor());
             pst.setString(3, book.getPublication());
-            pst.setString(4, book.getIsbn());
-            pst.setInt(5, book.getPages());
-            pst.setString(6, book.getIsbn());
+            pst.setInt(4, book.getPages());
+            pst.setString(5, book.getIsbn());
 
             pst.executeUpdate();
             pst.close();
