@@ -25,7 +25,6 @@ class Responder
 
     public String created()
     {
-
         response.setSuccess(true);
         response.putData("message", "Book registered");
         return gson.toJson(response);
@@ -33,7 +32,6 @@ class Responder
 
     public String readed(Book book)
     {
-
         response.setSuccess(true);
         response.putData("message", "Book information readed");
 
@@ -48,7 +46,6 @@ class Responder
 
     public String updated()
     {
-
         response.setSuccess(true);
         response.putData("message", "Book information updated");
         return gson.toJson(response);
@@ -56,7 +53,6 @@ class Responder
 
     public String deleted()
     {
-
         response.setSuccess(true);
         response.putData("message", "Book information deleted");
         return gson.toJson(response);
