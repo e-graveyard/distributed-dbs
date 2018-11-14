@@ -89,8 +89,6 @@ class Server
                 Connection c = new Connection(client, this);
                 new Thread(c).start();
             }
-
         }
-
     }
 }
