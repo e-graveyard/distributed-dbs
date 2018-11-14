@@ -20,26 +20,74 @@ class Connection implements Runnable
 
     private String handle(Handler handler)
     {
+        // Resposta do servidor.
         String response = null;
+
+        // Status de sucesso da operação no banco.
         Boolean success = null;
 
+        // ISBN (primary key) do livro (pode ou não ser usado).
+        String isbn = null;
+
+        // Objeto do livro (pode ou não ser usado).
+        Book book = null;
+
+        // Objeto do banco de dados.
         Database db = new Database();
 
+        // Quem é o remetente?
         String sender = handler.getSender();
+
+        // Objeto da resposta, inicializa com envelope formado.
+        Responder responder = new Responder(this.server.getName(), sender);
+
         switch(handler.getKind())
         {
             case "Ping":
                 Logger.info("Server has received a ping from *purple"
                     + sender + "*normal.");
 
-                response = handler.pong();
+                response = responder.pong();
                 break;
 
             case "CreateRecord":
-                success = db.create(handler.getBookInformation());
+                book = handler.getBookInformation();
+
+                Logger.info("Server has received a record creation request from *purple" + sender + "*normal.");
+                Logger.info("Book title: *purple" + book.getTitle() + "*normal.");
+                Logger.info("Book author: *purple" + book.getAuthor() + "*normal.");
+
+                success = db.create(book);
+                if(success)
+                {
+                    Logger.success("Registered!");
+                    response = responder.created();
+                }
+                else
+                {
+                    Logger.error("Could not register.");
+                    response = responder.creationError();
+                }
                 break;
 
             case "ReadRecord":
+                isbn = handler.getIsbn();
+
+                Logger.info("Server has received a request to read a register from *purple" + sender + "*normal.");
+                Logger.info("Book ISBN: *purple" + isbn + "*normal.");
+
+                book = db.read(isbn);
+                success = (book != null);
+                if(success)
+                {
+                    Logger.success("Readed!");
+                    response = responder.readed(book);
+                }
+                else
+                {
+                    Logger.error("Could not read.");
+                    response = responder.readError();
+                }
                 break;
 
             case "UpdateRecord":
