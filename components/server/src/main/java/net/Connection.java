@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 class Connection implements Runnable
 {
@@ -119,7 +121,7 @@ class Connection implements Runnable
                 if(success)
                 {
                     Logger.success("Removed!");
-                    response = responder.removed();
+                    response = responder.deleted();
                 }
                 else
                 {
@@ -138,13 +140,13 @@ class Connection implements Runnable
 
     public void run()
     {
-        try(BufferedReader data = new BufferedReader(new InputStreamReader(this.client.getInputStream())))
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(this.client.getOutputStream())))
         {
-            String message, response;
-            while((message = data.readLine()) != null)
-            {
-                response = this.handle(new Handler(message));
-            }
+            String response = this.handle(new Handler(br.readLine()));
+
+            bw.write(response.toString());
+            bw.flush();
         }
         catch(IOException e)
         {
