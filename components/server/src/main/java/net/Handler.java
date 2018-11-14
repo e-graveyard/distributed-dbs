@@ -51,11 +51,6 @@ class Handler
 
     public Book getBookInformation()
     {
-        Book book = gson.fromJson(
-                getData().toString(),
-                Book.class
-                );
-
-        return book;
+        return gson.fromJson(getData().toString(), Book.class);
     }
 }
