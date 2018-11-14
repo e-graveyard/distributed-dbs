@@ -16,10 +16,10 @@ class Responder
         this.response.setEnvelope(sender, recipient);
     }
 
-    public String ping()
+    public String pong()
     {
         response.setSuccess(true);
-        response.setData("message", "pong");
+        response.putData("message", "pong");
         return gson.toJson(response);
     }
 
@@ -27,7 +27,7 @@ class Responder
     {
 
         response.setSuccess(true);
-        response.setData("message", "Book registered");
+        response.putData("message", "Book registered");
         return gson.toJson(response);
     }
 
@@ -35,13 +35,13 @@ class Responder
     {
 
         response.setSuccess(true);
-        response.setData("message", "Book information readed");
+        response.putData("message", "Book information readed");
 
-        response.setData("title",       book.getTitle());
-        response.setData("author",      book.getAuthor());
-        response.setData("publication", book.getPublication());
-        response.setData("isbn",        book.getIsbn());
-        response.setData("pages",       Integer.toString(book.getTitle()));
+        response.putData("title",       book.getTitle());
+        response.putData("author",      book.getAuthor());
+        response.putData("publication", book.getPublication());
+        response.putData("isbn",        book.getIsbn());
+        response.putData("pages",       Integer.toString(book.getPages()));
 
         return gson.toJson(response);
     }
@@ -50,7 +50,7 @@ class Responder
     {
 
         response.setSuccess(true);
-        response.setData("message", "Book information updated");
+        response.putData("message", "Book information updated");
         return gson.toJson(response);
     }
 
@@ -58,35 +58,35 @@ class Responder
     {
 
         response.setSuccess(true);
-        response.setData("message", "Book information deleted");
+        response.putData("message", "Book information deleted");
         return gson.toJson(response);
     }
 
     public String creationError()
     {
         response.setSuccess(false);
-        response.setData("message", "Unable to register the book");
+        response.putData("message", "Unable to register the book");
         return gson.toJson(response);
     }
 
     public String readError()
     {
         response.setSuccess(false);
-        response.setData("message", "Unable to read the register of the book");
+        response.putData("message", "Unable to read the register of the book");
         return gson.toJson(response);
     }
 
     public String updateError()
     {
         response.setSuccess(false);
-        response.setData("message", "Unable to update the register of the book");
+        response.putData("message", "Unable to update the register of the book");
         return gson.toJson(response);
     }
 
     public String deletionError()
     {
         response.setSuccess(false);
-        response.setData("message", "Unable to delete the register of the book");
+        response.putData("message", "Unable to delete the register of the book");
         return gson.toJson(response);
     }
 }
