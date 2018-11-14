@@ -91,13 +91,45 @@ class Connection implements Runnable
                 break;
 
             case "UpdateRecord":
+                book = handler.getBookInformation();
+
+                Logger.info("Server has received a request to update a register from *purple" + sender + "*normal.");
+                Logger.info("Book ISBN: *purple" + book.getIsbn() + "*normal.");
+
+                success = db.update(book);
+                if(success)
+                {
+                    Logger.success("Updated!");
+                    response = responder.updated();
+                }
+                else
+                {
+                    Logger.error("Could not update.");
+                    response = responder.updateError();
+                }
                 break;
 
             case "DeleteRecord":
+                isbn = handler.getIsbn();
+
+                Logger.info("Server has received a request to read a register from *purple" + sender + "*normal.");
+                Logger.info("Book ISBN: *purple" + isbn + "*normal.");
+
+                success = db.delete(isbn);
+                if(success)
+                {
+                    Logger.success("Removed!");
+                    response = responder.removed();
+                }
+                else
+                {
+                    Logger.error("Could not delete.");
+                    response = responder.deletionError();
+                }
                 break;
 
             default:
-                Logger.warning("Unknown message kind. Ignoring.");
+                Logger.warning("Server has received an unknown message kind from *purple" + sender + "*normal. Ignoring.");
                 break;
         }
 
