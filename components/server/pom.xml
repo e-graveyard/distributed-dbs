@@ -21,7 +21,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                main.App
+                                server.App
                             </mainClass>
                         </manifest>
                     </archive>
