@@ -52,8 +52,7 @@ class Client
                    @Override
                    public void run()
                    {
-                       System.out.println("");
-                       Logger.warning("SIGINT caught.");
+                       System.out.print("\n");
                        Logger.info("Exiting...");
 
                        return;
@@ -67,7 +66,8 @@ class Client
             int option = Interface.getOption();
             if (option < 0 || option > 4)
             {
-                Logger.error("bla");
+                System.out.print("\n");
+                Logger.error("Invalid option.");
                 continue;
             }
 
