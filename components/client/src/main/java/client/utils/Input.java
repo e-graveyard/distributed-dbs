@@ -2,6 +2,11 @@ package client;
 
 class Input
 {
+    public static boolean isEmpty(String value)
+    {
+        return value == null || value.trim().isEmpty();
+    }
+
     public static boolean isInteger(String value)
     {
         boolean success = true;
