@@ -3,12 +3,12 @@ package server;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-class Handler
+class Parser
 {
     private Gson gson;
     private JsonObject payload;
 
-    public Handler(String payload)
+    public Parser(String payload)
     {
         this.gson = new Gson();
         this.payload = gson.fromJson(payload, JsonObject.class);
