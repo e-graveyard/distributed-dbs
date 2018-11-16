@@ -6,12 +6,14 @@ class Interface
 {
     public static void drawMenu()
     {
-        System.out.println("Choose an option:\n\n" +
-                "[1] Create\n" +
-                "[2] Read\n" +
-                "[3] Update\n" +
-                "[4] Delete\n" +
-                "[0] Exit\n");
+        Logger.info("Choose an option:\n");
+        System.out.println("\t[1] Create\n" +
+                "\t[2] Read\n" +
+                "\t[3] Update\n" +
+                "\t[4] Delete\n" +
+                "\t[0] Exit\n");
+
+        System.out.print("> ");
     }
 
     public static int getOption()
