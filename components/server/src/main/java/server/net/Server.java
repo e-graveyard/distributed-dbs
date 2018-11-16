@@ -81,7 +81,7 @@ class Server
                        @Override
                        public void run()
                        {
-                           System.out.println("");
+                           System.out.print("\n");
                            Logger.warning("SIGINT caught.");
                            Logger.info("Exiting...");
 
