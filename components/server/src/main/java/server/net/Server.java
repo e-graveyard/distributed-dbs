@@ -21,18 +21,19 @@ class Server
 {
     private int port;
     private String name;
+    private Random rand;
 
-    private static Random rand = new Random();
-    private static final int MAX_PORT_NUMBER = 65535;
-    private static final int MIN_PORT_NUMBER = 5000;
+    private final int MAX_PORT_NUMBER = 65535;
+    private final int MIN_PORT_NUMBER = 5000;
 
     public Server()
     {
-        this.port = generateValidPort();
-        this.name = generateUniqueName();
+        this.rand = new Random();
+        this.port = this.generateValidPort();
+        this.name = this.generateUniqueName();
     }
 
-    public static String generateUniqueName()
+    private String generateUniqueName()
     {
         String[] humanNames = {
             "JAMES", "JOHN", "ROBERT", "MICHAEL", "WILLIAM",
@@ -41,20 +42,20 @@ class Server
             "DOROTHY", "LISA", "NANCY", "DONNA", "MICHELLE"
         };
 
-        int index = rand.nextInt(humanNames.length);
+        int index = this.rand.nextInt(humanNames.length);
 
         String name = humanNames[index];
-        String numb = Integer.toString(rand.nextInt(1000000));
+        String numb = Integer.toString(this.rand.nextInt(1000000));
 
         return (name + "-" + numb);
     }
 
-    public static int generateValidPort()
+    private int generateValidPort()
     {
         int port = 0;
         while(port < MIN_PORT_NUMBER)
         {
-            port = rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
+            port = this.rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
         }
 
         return port;
@@ -91,8 +92,7 @@ class Server
             while(true)
             {
                 Socket client = socket.accept();
-                Connection c = new Connection(client, this);
-                new Thread(c).start();
+                new Thread(new Connection(client, this)).start();
             }
         }
     }
