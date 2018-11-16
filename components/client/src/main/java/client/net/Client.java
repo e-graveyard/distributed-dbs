@@ -44,29 +44,18 @@ class Client
         return this.name;
     }
 
-    public void act() throws Exception
+    public void act()
     {
-        Runtime.getRuntime().addShutdownHook(
-                new Thread()
-                {
-                   @Override
-                   public void run()
-                   {
-                       System.out.print("\n");
-                       Logger.info("Exiting...");
-
-                       return;
-                   }
-                });
-
+        int option = 0;
         boolean persist = true;
         while(persist)
         {
             Interface.drawMenu();
-            int option = Interface.getOption();
+            option = Interface.getOption();
+            System.out.print("\n");
+
             if (option < 0 || option > 4)
             {
-                System.out.print("\n");
                 Logger.error("Invalid option.");
                 continue;
             }
@@ -78,6 +67,12 @@ class Client
                     break;
 
                 case 1:
+                    Book book = Interface.getBook();
+                    if(book == null)
+                    {
+                        Logger.error("Unable to create the book register.");
+                        continue;
+                    }
                     break;
 
                 case 2:
@@ -89,7 +84,6 @@ class Client
                 case 4:
                     break;
             }
-
         }
     }
 }
