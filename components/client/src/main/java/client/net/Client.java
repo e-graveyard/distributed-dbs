@@ -46,12 +46,14 @@ class Client
 
     public void act()
     {
-        int option = 0;
         boolean persist = true;
         while(persist)
         {
+            Book book = null;
+            String isbn = null;
+
             Interface.drawMenu();
-            option = Interface.getOption();
+            int option = Interface.getOption();
             System.out.print("\n");
 
             if (option < 0 || option > 4)
@@ -67,12 +69,34 @@ class Client
                     break;
 
                 case 1:
-                    Book book = Interface.getBook();
-                    if(book == null)
+                    Logger.info("Input the book information:\n");
+
+                    String[] bookInfo = Interface.getBookInformation();
+                    if(bookInfo == null)
                     {
-                        Logger.error("Unable to create the book register.");
+                        System.out.print("\n");
+                        Logger.error("Invalid or empty input. Unable to create.");
                         continue;
                     }
+
+                    String bookIsbn = Interface.getIsbn();
+                    if(bookIsbn == null)
+                    {
+                        System.out.print("\n");
+                        Logger.error("Invalid ISBN identifier. Unable to create.");
+                        continue;
+                    }
+
+                    System.out.print("\n");
+
+                    String title    = bookInfo[0],
+                        author      = bookInfo[1],
+                        publication = bookInfo[2];
+                    int pages       = Integer.parseInt(bookInfo[3]);
+
+                    book = new Book(title, author, publication, isbn, pages);
+                    Logger.info(book.getTitle());
+
                     break;
 
                 case 2:
