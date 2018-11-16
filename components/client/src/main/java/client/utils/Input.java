@@ -9,18 +9,36 @@ class Input
 
     public static boolean isInteger(String value)
     {
-        boolean success = true;
-
         try
         {
             Integer.parseInt(value);
+            return true;
         }
         catch(NumberFormatException e)
         {
-            success = false;
+            return false;
         }
+    }
 
-        return success;
+    public static boolean isNumeric(String value)
+    {
+        try
+        {
+            Double.parseDouble(value);
+            return true;
+        }
+        catch(NumberFormatException e)
+        {
+            return false;
+        }
+    }
+
+    public static boolean isIsbn(String isbn)
+    {
+        if(isbn.length() == 13 && isNumeric(isbn))
+            return true;
+
+        return false;
     }
 
     public static boolean isArgValid(String[] args)
