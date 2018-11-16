@@ -9,17 +9,17 @@ import java.io.IOException;
 
 public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         Server s = new Server();
 
         try
         {
+            String port = Integer.toString(s.getPort());
+
             Logger.info("Hello!");
-            Logger.info("I'm server *purple@name*normal."
-                    .replace("@name", s.getName()));
-            Logger.info("Listening on port *purple@port*normal."
-                    .replace("@port", Integer.toString(s.getPort())));
+            Logger.info("I'm server *purple@name*normal.".replace("@name", s.getName()));
+            Logger.info("Listening on port *purple@port*normal.".replace("@port", port));
 
             s.listen();
         }
