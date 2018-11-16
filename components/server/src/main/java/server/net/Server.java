@@ -1,4 +1,4 @@
-package main;
+package server;
 
 import java.util.Random;
 import java.io.IOException;
