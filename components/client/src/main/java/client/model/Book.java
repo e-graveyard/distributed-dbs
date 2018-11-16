@@ -1,4 +1,4 @@
-package server;
+package client;
 /*
    Caian R. Ertl     (@caianrais)       - 20733152
    Diogo Casagrande  (@DiogoCasagrande) - 20718678
