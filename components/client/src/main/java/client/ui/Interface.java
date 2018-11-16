@@ -28,16 +28,33 @@ class Interface
         return option;
     }
 
-    public static Book getBook()
+    public static String getIsbn()
     {
-        String title, author, publication, isbn, pages;
-
-        Logger.info("Input the book information:\n");
+        String isbn;
 
         try
         {
-            Scanner scan = new Scanner(System.in);
+            System.out.print("\tISBN: ");
+            isbn = (new Scanner(System.in)).nextLine();
 
+            if(Input.isEmpty(isbn) || !Input.isIsbn(isbn))
+                throw new RuntimeException();
+
+            return isbn;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
+    public static String[] getBookInformation()
+    {
+        String title, author, publication, pages;
+        Scanner scan = new Scanner(System.in);
+
+        try
+        {
             System.out.print("\tTitle: ");
             title = scan.nextLine();
             if(Input.isEmpty(title))
@@ -53,34 +70,18 @@ class Interface
             if(Input.isEmpty(publication))
                 throw new RuntimeException();
 
-            System.out.print("\tISBN: ");
-            isbn = scan.nextLine();
-            if(Input.isEmpty(isbn))
-                throw new RuntimeException();
-
             System.out.print("\tPages: ");
             pages = scan.nextLine();
             if(Input.isEmpty(pages))
                 throw new RuntimeException();
 
-            int p = Integer.parseInt(pages);
+            Integer.parseInt(pages);
+            String[] information = { title, author, publication, pages };
 
-            System.out.print("\n");
-
-            return new Book(title, author, publication, isbn, p);
+            return information;
         }
-        catch(NumberFormatException e)
+        catch(Exception e)
         {
-            System.out.print("\n");
-            Logger.error("Invalid input.");
-
-            return null;
-        }
-        catch(RuntimeException e)
-        {
-            System.out.print("\n");
-            Logger.error("Empty input.");
-
             return null;
         }
     }
