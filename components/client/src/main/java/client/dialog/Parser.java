@@ -60,7 +60,15 @@ class Parser
 
     public Book toBook()
     {
-        // TODO
-        return null;
+        JsonObject data = getData();
+
+        String title  = getKeyAsString(data, "title"),
+               author = getKeyAsString(data, "author"),
+               publ   = getKeyAsString(data, "publication"),
+               isbn   = getKeyAsString(data, "isbn");
+
+        int pages = Integer.parseInt(getKeyAsString(data, "pages"));
+
+        return new Book(title, author, publ, isbn, pages);
     }
 }
