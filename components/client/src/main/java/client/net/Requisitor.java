@@ -48,7 +48,7 @@ class Requisitor
         }
     }
 
-    public Book readBook(String isbn)
+    public Parser readBook(String isbn)
     {
         Request request = new Request();
 
@@ -58,7 +58,6 @@ class Requisitor
 
         String response = makeRequest(gson.toJson(request));
 
-        return null;
-        // return (new Parser(response)).toBook();
+        return new Parser(response);
     }
 }
