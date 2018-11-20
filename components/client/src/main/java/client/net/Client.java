@@ -6,8 +6,6 @@ package client;
  */
 
 import java.util.Random;
-import java.io.OutputStream;
-import java.net.*;
 
 class Client
 {
@@ -44,16 +42,36 @@ class Client
         return this.name;
     }
 
+    public int getControllerPort()
+    {
+        return this.controllerPort;
+    }
+
     public void act()
     {
+        // ...
+        Book book;
+
+        // ...
+        int option;
+
+        // ...
+        String isbn;
+
+        // ...
+        String[] bookInfo;
+
+        // ...
+        Parser parser;
+
+        // ...
+        Requisitor requisitor = new Requisitor(this);
+
         boolean persist = true;
         while(persist)
         {
-            Book book = null;
-            String isbn = null;
-
             Interface.drawMenu();
-            int option = Interface.getOption();
+            option = Interface.getOption();
             System.out.print("\n");
 
             if (option < 0 || option > 4)
@@ -65,13 +83,14 @@ class Client
             switch(option)
             {
                 case 0:
+                    Logger.info("Bye-Bye!");
                     persist = false;
                     break;
 
                 case 1:
                     Logger.info("Input the book information:\n");
 
-                    String[] bookInfo = Interface.getBookInformation();
+                    bookInfo = Interface.getBookInformation();
                     if(bookInfo == null)
                     {
                         System.out.print("\n");
@@ -79,8 +98,8 @@ class Client
                         continue;
                     }
 
-                    String bookIsbn = Interface.getIsbn();
-                    if(bookIsbn == null)
+                    isbn = Interface.getIsbn();
+                    if(isbn == null)
                     {
                         System.out.print("\n");
                         Logger.error("Invalid ISBN identifier. Unable to create.");
@@ -100,6 +119,26 @@ class Client
                     break;
 
                 case 2:
+                    Logger.info("Enter the book's ISBN to search:\n");
+
+                    isbn = Interface.getIsbn();
+                    if(isbn == null)
+                    {
+                        System.out.println("\n");
+                        Logger.error("Invalid ISBN identifier. Unable to create.");
+                        continue;
+                    }
+
+                    book = requisitor.readBook(isbn);
+                    if(book != null)
+                    {
+                        // Interface.drawBookInformation(book);
+                    }
+                    else
+                    {
+                        // ...
+                    }
+
                     break;
 
                 case 3:
