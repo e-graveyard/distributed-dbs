@@ -50,9 +50,6 @@ class Client
     public void act()
     {
         // ...
-        Book book;
-
-        // ...
         int option;
 
         // ...
@@ -71,6 +68,7 @@ class Client
         while(persist)
         {
             Interface.drawMenu();
+
             option = Interface.getOption();
             System.out.print("\n");
 
@@ -106,15 +104,21 @@ class Client
                         continue;
                     }
 
-                    System.out.print("\n");
 
-                    String title    = bookInfo[0],
-                        author      = bookInfo[1],
-                        publication = bookInfo[2];
-                    int pages       = Integer.parseInt(bookInfo[3]);
+                    String title = bookInfo[0],
+                        author   = bookInfo[1],
+                        publ     = bookInfo[2],
+                        pages    = bookInfo[3];
 
-                    book = new Book(title, author, publication, isbn, pages);
-                    Logger.info(book.getTitle());
+                    parsedResponse = requisitor.createBook(title, author, publ, isbn, pages);
+                    if(parsedResponse.isOkay())
+                    {
+                        Logger.success("Registered!");
+                    }
+                    else
+                    {
+                        Logger.error("Could not register.");
+                    }
 
                     break;
 
@@ -122,9 +126,10 @@ class Client
                     Logger.info("Enter the book's ISBN to search:\n");
 
                     isbn = Interface.getIsbn();
+                    System.out.print("\n");
+
                     if(isbn == null)
                     {
-                        System.out.println("\n");
                         Logger.error("Invalid ISBN identifier. Unable to create.");
                         continue;
                     }
@@ -132,11 +137,12 @@ class Client
                     parsedResponse = requisitor.readBook(isbn);
                     if(parsedResponse.isOkay())
                     {
-                        // Interface.drawBookInformation(book);
+                        Logger.success("Readed!");
+                        Interface.drawBookInformation(parsedResponse.toBook());
                     }
                     else
                     {
-                        // ...
+                        Logger.error("Could not read.");
                     }
 
                     break;
