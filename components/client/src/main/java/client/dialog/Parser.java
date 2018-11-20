@@ -5,10 +5,62 @@ package client;
    Julia G. C. Chiba (@JuliaChiba)      - 20511823
  */
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 class Parser
 {
-    public Parser()
-    {
+    private Gson gson;
+    private JsonObject response;
 
+    public Parser(String response)
+    {
+        this.gson = new Gson();
+
+        if(response == null)
+            this.response = null;
+        else
+            this.response = gson.fromJson(response, JsonObject.class);
+    }
+
+    public boolean isOkay()
+    {
+        return this.response != null;
+    }
+
+    private String getKeyAsString(JsonObject obj, String key)
+    {
+        return obj.get(key).getAsString();
+    }
+
+    private JsonObject getKeyAsObject(JsonObject obj, String key)
+    {
+        return obj.get(key).getAsJsonObject();
+    }
+
+    private JsonObject getData()
+    {
+        return getKeyAsObject(response, "data");
+    }
+
+    private JsonObject getEnvelope()
+    {
+        return getKeyAsObject(response, "envelope");
+    }
+
+    public String getSender()
+    {
+        return getKeyAsString(getEnvelope(), "from");
+    }
+
+    public String getMessage()
+    {
+        return getKeyAsString(getData(), "message");
+    }
+
+    public Book toBook()
+    {
+        // TODO
+        return null;
     }
 }
