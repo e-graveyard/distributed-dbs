@@ -56,6 +56,15 @@ class Parser
 
     public Book toBook()
     {
-        return gson.fromJson(getData().toString(), Book.class);
+        JsonObject data = getData();
+
+        String title  = getKeyAsString(data, "title"),
+               author = getKeyAsString(data, "author"),
+               publ   = getKeyAsString(data, "publication"),
+               isbn   = getKeyAsString(data, "isbn");
+
+        int pages = Integer.parseInt(getKeyAsString(data, "pages"));
+
+        return new Book(title, author, publ, isbn, pages);
     }
 }
