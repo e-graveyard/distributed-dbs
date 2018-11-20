@@ -31,13 +31,13 @@ class Connection implements Runnable
         String response = null;
 
         // Status de sucesso da operação no banco.
-        Boolean success = null;
+        Boolean success;
 
         // ISBN (primary key) do livro (pode ou não ser usado).
-        String isbn = null;
+        String isbn;
 
         // Objeto do livro (pode ou não ser usado).
-        Book book = null;
+        Book book;
 
         // Objeto do banco de dados.
         Database db = new Database();
