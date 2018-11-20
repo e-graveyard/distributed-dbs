@@ -6,7 +6,6 @@ package server;
  */
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 class Responder
 {
@@ -25,6 +24,7 @@ class Responder
     {
         response.setSuccess(true);
         response.putData("message", "pong");
+
         return gson.toJson(response);
     }
 
@@ -32,6 +32,7 @@ class Responder
     {
         response.setSuccess(true);
         response.putData("message", "Book registered");
+
         return gson.toJson(response);
     }
 
@@ -53,6 +54,7 @@ class Responder
     {
         response.setSuccess(true);
         response.putData("message", "Book information updated");
+
         return gson.toJson(response);
     }
 
@@ -60,6 +62,7 @@ class Responder
     {
         response.setSuccess(true);
         response.putData("message", "Book information deleted");
+
         return gson.toJson(response);
     }
 
@@ -67,6 +70,7 @@ class Responder
     {
         response.setSuccess(false);
         response.putData("message", "Unable to register the book");
+
         return gson.toJson(response);
     }
 
@@ -74,6 +78,7 @@ class Responder
     {
         response.setSuccess(false);
         response.putData("message", "Unable to read the register of the book");
+
         return gson.toJson(response);
     }
 
@@ -81,6 +86,7 @@ class Responder
     {
         response.setSuccess(false);
         response.putData("message", "Unable to update the register of the book");
+
         return gson.toJson(response);
     }
 
@@ -88,6 +94,7 @@ class Responder
     {
         response.setSuccess(false);
         response.putData("message", "Unable to delete the register of the book");
+
         return gson.toJson(response);
     }
 }
