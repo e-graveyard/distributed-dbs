@@ -62,7 +62,7 @@ class Client
         String[] bookInfo;
 
         // ...
-        Parser parser;
+        Parser parsedResponse;
 
         // ...
         Requisitor requisitor = new Requisitor(this);
@@ -129,8 +129,8 @@ class Client
                         continue;
                     }
 
-                    book = requisitor.readBook(isbn);
-                    if(book != null)
+                    parsedResponse = requisitor.readBook(isbn);
+                    if(parsedResponse.isOkay())
                     {
                         // Interface.drawBookInformation(book);
                     }
