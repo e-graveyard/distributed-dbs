@@ -39,7 +39,7 @@
         "title": "Nineteen Eighty Four",
         "publication": "8-6-1949",
         "author": "George Orwell",
-        "pages": 326,
+        "pages": "326",
         "isbn": "9788535914849"
     }
 }
@@ -105,7 +105,7 @@
         "title": "Nineteen Eighty Four",
         "publication": "8-6-1949",
         "author": "George Orwell",
-        "pages": 326,
+        "pages": "326",
         "isbn": "9788535914849",
         "message": "Book information readed"
     },
@@ -142,7 +142,7 @@
         "title": "Nineteen Eighty Four",
         "publication": "8-6-1949",
         "author": "George Orwell",
-        "pages": 326,
+        "pages": "326",
         "isbn": "9788535914849"
     }
 }
