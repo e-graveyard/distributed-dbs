@@ -58,7 +58,7 @@ class Connection implements Runnable
                 break;
 
             case "CreateRecord":
-                book = parsedRequest.getBookInformation();
+                book = parsedRequest.toBook();
 
                 Logger.info("Server has received a record creation request from *purple" + sender + "*normal.");
                 Logger.info("Book title: *purple" + book.getTitle() + "*normal.");
