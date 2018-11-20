@@ -54,7 +54,7 @@ class Parser
         return getKeyAsString(getData(), "isbn");
     }
 
-    public Book getBookInformation()
+    public Book toBook()
     {
         return gson.fromJson(getData().toString(), Book.class);
     }
