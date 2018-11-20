@@ -1,6 +1,7 @@
 package client;
 
 import java.util.Scanner;
+import java.text.MessageFormat;
 import java.lang.RuntimeException;
 
 class Interface
@@ -8,7 +9,9 @@ class Interface
     public static void drawMenu()
     {
         Logger.info("Choose an option:\n");
-        System.out.println("\t[1] Create\n" +
+
+        System.out.println(
+                "\t[1] Create\n" +
                 "\t[2] Read\n" +
                 "\t[3] Update\n" +
                 "\t[4] Delete\n" +
@@ -84,5 +87,28 @@ class Interface
         {
             return null;
         }
+    }
+
+    public static void drawBookInformation(Book book)
+    {
+        Logger.info("Book information:\n");
+
+        Object[] vals = {
+            book.getTitle(),
+            book.getPublication(),
+            book.getAuthor(),
+            book.getPages(),
+            book.getIsbn()
+        };
+
+        String content = (new MessageFormat(
+                    "\tTitle: {0}\n" +
+                    "\tPublication: {1}\n" +
+                    "\tAuthor: {2}\n" +
+                    "\tPages: {3}\n" +
+                    "\tISBN: {4}\n"
+                    )).format(vals);
+
+        System.out.println(content);
     }
 }
