@@ -25,7 +25,7 @@ class Connection implements Runnable
         this.server = server;
     }
 
-    private String handle(Parser message)
+    private String handle(Parser parsedRequest)
     {
         // Resposta do servidor.
         String response = null;
@@ -43,12 +43,12 @@ class Connection implements Runnable
         Database db = new Database();
 
         // Quem é o remetente?
-        String sender = message.getSender();
+        String sender = parsedRequest.getSender();
 
         // Objeto da resposta, inicializa com envelope formado.
         Responder responder = new Responder(this.server.getName(), sender);
 
-        switch(message.getKind())
+        switch(parsedRequest.getKind())
         {
             case "Ping":
                 Logger.info("Server has received a ping from *purple"
@@ -58,7 +58,7 @@ class Connection implements Runnable
                 break;
 
             case "CreateRecord":
-                book = message.getBookInformation();
+                book = parsedRequest.getBookInformation();
 
                 Logger.info("Server has received a record creation request from *purple" + sender + "*normal.");
                 Logger.info("Book title: *purple" + book.getTitle() + "*normal.");
@@ -78,7 +78,7 @@ class Connection implements Runnable
                 break;
 
             case "ReadRecord":
-                isbn = message.getIsbn();
+                isbn = parsedRequest.getIsbn();
 
                 Logger.info("Server has received a request to read a register from *purple" + sender + "*normal.");
                 Logger.info("Book ISBN: *purple" + isbn + "*normal.");
@@ -98,7 +98,7 @@ class Connection implements Runnable
                 break;
 
             case "UpdateRecord":
-                book = message.getBookInformation();
+                book = parsedRequest.toBook();
 
                 Logger.info("Server has received a request to update a register from *purple" + sender + "*normal.");
                 Logger.info("Book ISBN: *purple" + book.getIsbn() + "*normal.");
@@ -117,7 +117,7 @@ class Connection implements Runnable
                 break;
 
             case "DeleteRecord":
-                isbn = message.getIsbn();
+                isbn = parsedRequest.getIsbn();
 
                 Logger.info("Server has received a request to read a register from *purple" + sender + "*normal.");
                 Logger.info("Book ISBN: *purple" + isbn + "*normal.");
