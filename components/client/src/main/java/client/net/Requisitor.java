@@ -48,16 +48,34 @@ class Requisitor
         }
     }
 
+    public Parser createBook(String title, String publ, String author, String pages, String isbn)
+    {
+        Request req = new Request();
+
+        req.setSender(clientName);
+        req.setKind("CreateRecord");
+
+        req.putData("title",       title);
+        req.putData("publication", publ);
+        req.putData("author",      author);
+        req.putData("pages",       pages);
+        req.putData("isbn",        isbn);
+
+        String res = makeRequest(gson.toJson(req));
+
+        return new Parser(res);
+    }
+
     public Parser readBook(String isbn)
     {
-        Request request = new Request();
+        Request req = new Request();
 
-        request.setSender(clientName);
-        request.setKind("ReadRecord");
-        request.putData("isbn", isbn);
+        req.setSender(clientName);
+        req.setKind("ReadRecord");
+        req.putData("isbn", isbn);
 
-        String response = makeRequest(gson.toJson(request));
+        String res = makeRequest(gson.toJson(req));
 
-        return new Parser(response);
+        return new Parser(res);
     }
 }
