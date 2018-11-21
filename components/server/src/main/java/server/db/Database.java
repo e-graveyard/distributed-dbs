@@ -123,7 +123,7 @@ class Database
         if(conn == null)
             return null;
 
-        String statement = "UPDATE book SET title = ?, author = ?, publication = ?, pages = ? WHERE isbn = ?";
+        String statement = "UPDATE books SET title = ?, author = ?, publication = ?, pages = ? WHERE isbn = ?";
 
         try
         {
