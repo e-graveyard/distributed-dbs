@@ -79,12 +79,18 @@ class Requisitor
         return new Parser(res);
     }
 
-    public Parser updateBook(String title, String publ, String author, String pages, String isbn)
+    public Parser updateBook(String title, String author, String publ, String isbn, String pages)
     {
         Request req = new Request();
 
         req.setSender(clientName);
         req.setKind("UpdateRecord");
+
+        req.putData("title",       title);
+        req.putData("author",      author);
+        req.putData("publication", publ);
+        req.putData("isbn",        isbn);
+        req.putData("pages",       pages);
 
         String res = makeRequest(gson.toJson(req));
 
