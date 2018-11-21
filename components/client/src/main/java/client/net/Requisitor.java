@@ -48,7 +48,7 @@ class Requisitor
         }
     }
 
-    public Parser createBook(String title, String publ, String author, String pages, String isbn)
+    public Parser createBook(String title, String author, String publ, String isbn, String pages)
     {
         Request req = new Request();
 
@@ -56,10 +56,10 @@ class Requisitor
         req.setKind("CreateRecord");
 
         req.putData("title",       title);
-        req.putData("publication", publ);
         req.putData("author",      author);
-        req.putData("pages",       pages);
+        req.putData("publication", publ);
         req.putData("isbn",        isbn);
+        req.putData("pages",       pages);
 
         String res = makeRequest(gson.toJson(req));
 
@@ -72,6 +72,31 @@ class Requisitor
 
         req.setSender(clientName);
         req.setKind("ReadRecord");
+        req.putData("isbn", isbn);
+
+        String res = makeRequest(gson.toJson(req));
+
+        return new Parser(res);
+    }
+
+    public Parser updateBook(String title, String publ, String author, String pages, String isbn)
+    {
+        Request req = new Request();
+
+        req.setSender(clientName);
+        req.setKind("UpdateRecord");
+
+        String res = makeRequest(gson.toJson(req));
+
+        return new Parser(res);
+    }
+
+    public Parser deleteBook(String isbn)
+    {
+        Request req = new Request();
+
+        req.setSender(clientName);
+        req.setKind("DeleteRecord");
         req.putData("isbn", isbn);
 
         String res = makeRequest(gson.toJson(req));
