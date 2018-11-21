@@ -102,12 +102,14 @@ class Interface
         };
 
         String content = (new MessageFormat(
-                    "\tTitle: {0}\n" +
+                    "\t      Title: {0}\n" +
                     "\tPublication: {1}\n" +
-                    "\tAuthor: {2}\n" +
-                    "\tPages: {3}\n" +
-                    "\tISBN: {4}\n"
-                    )).format(vals);
+                    "\t     Author: {2}\n" +
+                    "\t      Pages: {3}\n" +
+                    "\t       ISBN: {4}\n"
+                    ))
+
+            .format(vals);
 
         System.out.println(content);
     }
