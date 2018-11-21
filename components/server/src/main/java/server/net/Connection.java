@@ -119,7 +119,7 @@ class Connection implements Runnable
             case "DeleteRecord":
                 isbn = parsedRequest.getIsbn();
 
-                Logger.info("Server has received a request to read a register from *purple" + sender + "*normal.");
+                Logger.info("Server has received a request to delete a register from *purple" + sender + "*normal.");
                 Logger.info("Book ISBN: *purple" + isbn + "*normal.");
 
                 success = db.delete(isbn);
