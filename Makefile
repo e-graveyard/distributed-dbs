@@ -1,5 +1,16 @@
 MVN = mvn clean compile assembly:single
 
+all: clean client server
+
+controller:
+	$(MAKE) target=controller build
+
+client:
+	$(MAKE) target=client build
+
+server:
+	$(MAKE) target=server build
+
 build:
 	cd components/$(target) && $(MVN)
 
