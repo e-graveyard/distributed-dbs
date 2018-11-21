@@ -104,11 +104,12 @@ class Client
                         continue;
                     }
 
-
                     String title = bookInfo[0],
                         author   = bookInfo[1],
                         publ     = bookInfo[2],
                         pages    = bookInfo[3];
+
+                    System.out.print("\n");
 
                     parsedResponse = requisitor.createBook(title, author, publ, isbn, pages);
                     if(parsedResponse.isOkay())
@@ -119,18 +120,16 @@ class Client
                     {
                         Logger.error("Could not register.");
                     }
-
                     break;
 
                 case 2:
-                    Logger.info("Enter the book's ISBN to search:\n");
+                    Logger.info("Enter the book's ISBN to read:\n");
 
                     isbn = Interface.getIsbn();
                     System.out.print("\n");
-
                     if(isbn == null)
                     {
-                        Logger.error("Invalid ISBN identifier. Unable to create.");
+                        Logger.error("Invalid ISBN identifier. Unable to read.");
                         continue;
                     }
 
@@ -144,13 +143,31 @@ class Client
                     {
                         Logger.error("Could not read.");
                     }
-
                     break;
 
                 case 3:
                     break;
 
                 case 4:
+                    Logger.info("Enter the book's ISBN to delete:\n");
+
+                    isbn = Interface.getIsbn();
+                    System.out.print("\n");
+                    if(isbn == null)
+                    {
+                        Logger.error("Invalid ISBN identifier. Unable to delete.");
+                        continue;
+                    }
+
+                    parsedResponse = requisitor.deleteBook(isbn);
+                    if(parsedResponse.isOkay())
+                    {
+                        Logger.success("Deleted!");
+                    }
+                    else
+                    {
+                        Logger.error("Could not delete.");
+                    }
                     break;
             }
         }
