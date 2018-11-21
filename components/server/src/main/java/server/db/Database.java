@@ -40,8 +40,9 @@ class Database
         {
             return DriverManager.getConnection(this.url, this.username, this.password);
         }
-        catch(SQLException ex)
+        catch(SQLException e)
         {
+            e.printStackTrace();
             return null;
         }
     }
@@ -70,8 +71,9 @@ class Database
 
             success = true;
         }
-        catch(SQLException ex)
+        catch(SQLException e)
         {
+            e.printStackTrace();
             success = false;
         }
 
@@ -104,8 +106,9 @@ class Database
                         result.getInt("pages"));
             }
         }
-        catch (SQLException ex)
+        catch (SQLException e)
         {
+            e.printStackTrace();
             book = null;
         }
 
@@ -137,8 +140,9 @@ class Database
             success = true;
 
         }
-        catch(SQLException ex)
+        catch(SQLException e)
         {
+            e.printStackTrace();
             success = false;
         }
 
@@ -165,8 +169,9 @@ class Database
 
             success = true;
         }
-        catch(SQLException ex)
+        catch(SQLException e)
         {
+            e.printStackTrace();
             success = false;
         }
 
