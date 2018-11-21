@@ -53,7 +53,7 @@ class Client
         int option;
 
         // ...
-        String isbn;
+        String title, author, publication, isbn, pages;
 
         // ...
         String[] bookInfo;
@@ -104,14 +104,14 @@ class Client
                         continue;
                     }
 
-                    String title = bookInfo[0],
-                        author   = bookInfo[1],
-                        publ     = bookInfo[2],
-                        pages    = bookInfo[3];
+                    title       = bookInfo[0];
+                    author      = bookInfo[1];
+                    publication = bookInfo[2];
+                    pages       = bookInfo[3];
 
                     System.out.print("\n");
 
-                    parsedResponse = requisitor.createBook(title, author, publ, isbn, pages);
+                    parsedResponse = requisitor.createBook(title, author, publication, isbn, pages);
                     if(parsedResponse.isOkay())
                     {
                         Logger.success("Registered!");
@@ -146,6 +146,43 @@ class Client
                     break;
 
                 case 3:
+                    Logger.info("Enter the book's ISBN to update:\n");
+
+                    isbn = Interface.getIsbn();
+                    if(isbn == null)
+                    {
+                        System.out.print("\n");
+                        Logger.error("Invalid ISBN identifier. Unable to update.");
+                        continue;
+                    }
+
+                    System.out.print("\n");
+                    Logger.info("Input the book information:\n");
+
+                    bookInfo = Interface.getBookInformation();
+                    if(bookInfo == null)
+                    {
+                        System.out.print("\n");
+                        Logger.error("Invalid or empty input. Unable to update.");
+                        continue;
+                    }
+
+                    title       = bookInfo[0];
+                    author      = bookInfo[1];
+                    publication = bookInfo[2];
+                    pages       = bookInfo[3];
+
+                    System.out.print("\n");
+
+                    parsedResponse = requisitor.updateBook(title, author, publication, isbn, pages);
+                    if(parsedResponse.isOkay())
+                    {
+                        Logger.success("Registered!");
+                    }
+                    else
+                    {
+                        Logger.error("Could not register.");
+                    }
                     break;
 
                 case 4:
