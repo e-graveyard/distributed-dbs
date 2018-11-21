@@ -1,6 +1,6 @@
 MVN = mvn clean compile assembly:single
 
-all: clean client server
+all: clean controller client server
 
 controller:
 	$(MAKE) target=controller build
