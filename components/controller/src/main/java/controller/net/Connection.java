@@ -70,6 +70,9 @@ class Connection implements Runnable
                     .replace("@sender", sender));
 
             Server server = pickAvailableServer(kind);
+            if(server == null)
+                return;
+
             Logger.info("Routing request *purple@kind*normal (*purple@client*normal -> *purple@server*normal)."
                     .replace("@kind", kind)
                     .replace("@client", sender)
