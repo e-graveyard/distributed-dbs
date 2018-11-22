@@ -38,10 +38,10 @@ class Controller
             "DOROTHY", "LISA", "NANCY", "DONNA", "MICHELLE"
         };
 
-        int index = this.rand.nextInt(humanNames.length);
+        int index = rand.nextInt(humanNames.length);
 
         String name = humanNames[index];
-        String numb = Integer.toString(this.rand.nextInt(1000000));
+        String numb = Integer.toString(rand.nextInt(1000000));
 
         return (name + "-" + numb);
     }
@@ -51,7 +51,7 @@ class Controller
         int port = 0;
         while(port < MIN_PORT_NUMBER)
         {
-            port = this.rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
+            port = rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
         }
 
         return port;
@@ -59,27 +59,27 @@ class Controller
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public int getPort()
     {
-        return this.port;
+        return port;
     }
 
     public boolean discover()
     {
         boolean available = false;
 
-        int len = this.serverPorts.length;
+        int len = serverPorts.length;
         Server[] servers = new Server[len];
 
         for(int i = 0; i < len; i++)
         {
-            int port = this.serverPorts[i];
+            int port = serverPorts[i];
             Logger.info("Trying to discover server at port *purple@port*normal.".replace("@port", Integer.toString(port)));
 
-            String res = this.router.ping(this.serverPorts[i]);
+            String res = router.ping(serverPorts[i]);
             if(res != null)
             {
                 available = true;
@@ -96,7 +96,7 @@ class Controller
         }
 
         if(available)
-            this.router.init(servers);
+            router.init(servers);
 
         return available;
     }

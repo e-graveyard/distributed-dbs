@@ -20,12 +20,12 @@ class Server
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public int getPort()
     {
-        return this.port;
+        return port;
     }
 
     public void setAvailability(boolean available)
@@ -35,6 +35,6 @@ class Server
 
     public boolean isAvailable()
     {
-        return this.available;
+        return available;
     }
 }
