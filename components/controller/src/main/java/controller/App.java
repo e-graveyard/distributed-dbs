@@ -16,5 +16,27 @@ public class App
         }
 
         int[] serverPorts = Input.strListToIntList(args);
+
+        Controller c;
+
+        try
+        {
+            c = new Controller(serverPorts);
+
+            String port = Integer.toString(c.getPort());
+            Logger.info("Hello!");
+            Logger.info("I'm controller *purple@name*normal".replace("@name", c.getName()));
+
+            Logger.info("Hang tight...");
+            c.discover();
+
+            Logger.info("Listening on port *purple@port*normal".replace("@port", port));
+            c.listen();
+        }
+        catch(Exception e)
+        {
+            Logger.error("Something went wrong.");
+            e.printStackTrace();
+        }
     }
 }
