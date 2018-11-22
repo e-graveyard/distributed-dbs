@@ -37,4 +37,9 @@ class Parser
     {
         return getKeyAsString(getEnvelope(), "from");
     }
+
+    public String getKind()
+    {
+        return getKeyAsString(content, "kind");
+    }
 }
