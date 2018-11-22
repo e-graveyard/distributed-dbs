@@ -5,6 +5,8 @@ package controller;
    Julia G. C. Chiba (@JuliaChiba)      - 20511823
  */
 
+import java.lang.InterruptedException;
+
 class Retry implements Runnable
 {
     private Router router;
@@ -18,10 +20,18 @@ class Retry implements Runnable
 
     public void run()
     {
-        while(true)
+        boolean active = true;
+        try
         {
-            Thread.sleep(clock);
-            router.checkServersAvailability();
+            while(active)
+            {
+                Thread.sleep(clock);
+                router.checkServersAvailability();
+            }
+        }
+        catch(InterruptedException e)
+        {
+            active = false;
         }
     }
 }
