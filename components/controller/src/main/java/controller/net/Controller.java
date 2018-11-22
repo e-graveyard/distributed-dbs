@@ -107,7 +107,7 @@ class Controller
 
     public void retry()
     {
-        new Thread(new Retry(router, 15)).start();
+        new Thread(new Retry(router, 30)).start();
     }
 
     public void listen() throws IOException
