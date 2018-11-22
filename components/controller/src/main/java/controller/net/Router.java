@@ -27,18 +27,16 @@ class Router
     {
         for(int i = 0; i < servers.length; i++)
         {
-            Logger.info("Checking availability of server *purple@name*normal.".replace("@name", servers[i].getName()));
-
             boolean isAvailable = (ping(servers[i].getPort()) != null);
             servers[i].setAvailability(isAvailable);
 
             if(isAvailable)
             {
-                Logger.success("Server available.");
+                Logger.success("Server *purple" + servers[i].getName() + "*normal is available.");
             }
             else
             {
-                Logger.error("Server unavailable.");
+                Logger.error("Server *purple" + servers[i].getName() + "*normal is unavailable.");
             }
         }
     }
@@ -77,7 +75,6 @@ class Router
         }
         catch(Exception e)
         {
-            e.printStackTrace();
             return null;
         }
     }
@@ -88,9 +85,8 @@ class Router
         {
             return request(s, pingRequest);
         }
-        catch(IOException e)
+        catch(Exception e)
         {
-            e.printStackTrace();
             return null;
         }
     }
@@ -101,11 +97,12 @@ class Router
 
         while(tries < QUANTITY_OF_SERVERS)
         {
-            if(counter == QUANTITY_OF_SERVERS)
+            if(counter == (QUANTITY_OF_SERVERS - 1))
                 counter = 0;
 
             if(servers[counter].isAvailable())
             {
+                counter++;
                 return new Integer(counter);
             }
 
@@ -125,5 +122,10 @@ class Router
         }
 
         return true;
+    }
+
+    public Server getServer(int i)
+    {
+        return servers[i];
     }
 }
