@@ -91,8 +91,6 @@ class Interface
 
     public static void drawBookInformation(Book book)
     {
-        Logger.info("Book information:\n");
-
         Object[] vals = {
             book.getTitle(),
             book.getPublication(),

@@ -136,7 +136,7 @@ class Client
                     parsedResponse = requisitor.readBook(isbn);
                     if(parsedResponse.isOkay())
                     {
-                        Logger.success("Book info readed by *purple" + parsedResponse.getSender() + "*normal.");
+                        Logger.success("Book info readed by *purple" + parsedResponse.getSender() + "*normal.\n");
                         Interface.drawBookInformation(parsedResponse.toBook());
                     }
                     else
