@@ -6,15 +6,13 @@ package controller;
  */
 
 import java.util.Random;
-import com.google.gson.Gson;
 
 class Controller
 {
-    private int port;
-    private String name;
     private Random rand;
+    private String name;
     private Router router;
-    private Server[] servers;
+    private int port;
     private int[] serverPorts;
 
     private final int MAX_PORT_NUMBER = 65535;
@@ -22,11 +20,13 @@ class Controller
 
     public Controller(int[] serverPorts)
     {
-        this.rand   = new Random();
-        this.name   = this.generateUniqueName();
-        this.port   = this.generateValidPort();
-        this.router = new Router();
+        this.rand = new Random();
+        this.name = this.generateUniqueName();
+        this.port = this.generateValidPort();
         this.serverPorts = serverPorts;
+
+        this.router = new Router();
+        this.router.setPingRequest(this.name);
     }
 
     private String generateUniqueName()
@@ -67,29 +67,11 @@ class Controller
         return this.port;
     }
 
-    private Server ping(String host, int port)
+    public boolean discover()
     {
-        Request req = new Request();
+        boolean available = false;
 
-        req.setKind("Ping");
-        req.setSender(this.name);
-
-        String res = router.makeRequest(
-                host, port,
-                (new Gson()).toJson(req));
-
-        if(res == null)
-            return null;
-
-        String serverName = (new Parser(res)).getSender();
-
-        return new Server(serverName, port);
-    }
-
-    public void discover()
-    {
         int len = this.serverPorts.length;
-
         Server[] servers = new Server[len];
 
         for(int i = 0; i < len; i++)
@@ -97,10 +79,14 @@ class Controller
             int port = this.serverPorts[i];
             Logger.info("Trying to discover server at port *purple@port*normal.".replace("@port", Integer.toString(port)));
 
-            Server s = ping("127.0.0.1", this.serverPorts[i]);
-            if(s != null)
+            String res = this.router.ping(this.serverPorts[i]);
+            if(res != null)
             {
+                available = true;
+
+                Server s = new Server((new Parser(res)).getSender(), port, true);
                 Logger.success("Server *purple@name*normal were discovered.".replace("@name", s.getName()));
+
                 servers[i] = s;
             }
             else
@@ -109,7 +95,10 @@ class Controller
             }
         }
 
-        this.servers = servers;
+        if(available)
+            this.router.init(servers);
+
+        return available;
     }
 
     public void listen()
