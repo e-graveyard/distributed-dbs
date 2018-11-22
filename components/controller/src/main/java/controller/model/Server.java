@@ -9,11 +9,13 @@ class Server
 {
     private String name;
     private int port;
+    private boolean available;
 
-    public Server(String name, int port)
+    public Server(String name, int port, boolean available)
     {
         this.name = name;
         this.port = port;
+        this.available = available;
     }
 
     public String getName()
@@ -24,5 +26,15 @@ class Server
     public int getPort()
     {
         return this.port;
+    }
+
+    public void setAvailability(boolean available)
+    {
+        this.available = available;
+    }
+
+    public boolean isAvailable()
+    {
+        return this.available;
     }
 }
