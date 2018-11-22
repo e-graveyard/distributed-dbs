@@ -15,14 +15,18 @@ class Controller
     private Random rand;
     private Router router;
     private Server[] servers;
+    private int[] serverPorts;
+
+    private final int MAX_PORT_NUMBER = 65535;
+    private final int MIN_PORT_NUMBER = 5000;
 
     public Controller(int[] serverPorts)
     {
-        this.rand    = new Random();
-        this.router  = new Router();
-        this.port    = this.generateValidPort();
-        this.name    = this.generateUniqueName();
-        this.servers = this.discover(serverPorts);
+        this.rand   = new Random();
+        this.name   = this.generateUniqueName();
+        this.port   = this.generateValidPort();
+        this.router = new Router();
+        this.serverPorts = serverPorts;
     }
 
     private String generateUniqueName()
@@ -42,6 +46,17 @@ class Controller
         return (name + "-" + numb);
     }
 
+    private int generateValidPort()
+    {
+        int port = 0;
+        while(port < MIN_PORT_NUMBER)
+        {
+            port = this.rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
+        }
+
+        return port;
+    }
+
     public String getName()
     {
         return this.name;
@@ -57,26 +72,48 @@ class Controller
         Request req = new Request();
 
         req.setKind("Ping");
-        req.setSender("");
+        req.setSender(this.name);
 
         String res = router.makeRequest(
                 host, port,
                 (new Gson()).toJson(req));
+
+        if(res == null)
+            return null;
 
         String serverName = (new Parser(res)).getSender();
 
         return new Server(serverName, port);
     }
 
-    private Server[] discover(int[] ports)
+    public void discover()
     {
-        Server[] servers = new Server[ports.length];
+        int len = this.serverPorts.length;
 
-        for(int i = 0; i < ports.length; i++)
+        Server[] servers = new Server[len];
+
+        for(int i = 0; i < len; i++)
         {
-            servers[i] = ping("127.0.0.1", ports[i]);
+            int port = this.serverPorts[i];
+            Logger.info("Trying to discover server at port *purple@port*normal.".replace("@port", Integer.toString(port)));
+
+            Server s = ping("127.0.0.1", this.serverPorts[i]);
+            if(s != null)
+            {
+                Logger.success("Server *purple@name*normal were discovered.".replace("@name", s.getName()));
+                servers[i] = s;
+            }
+            else
+            {
+                Logger.error("Unable to discover. Skipping..");
+            }
         }
 
-        return servers;
+        this.servers = servers;
+    }
+
+    public void listen()
+    {
+        Logger.info("Bye-Bye!");
     }
 }
