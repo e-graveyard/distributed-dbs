@@ -23,7 +23,7 @@ class Connection implements Runnable
         String clientRequest = router.request(client, null),
                requestKind   = (new Parser(clientRequest)).getKind();
 
-        if(!router.areAllServersAvailable && requestKind != "ReadRecord")
+        if(!router.areAllServersAvailable() && requestKind != "ReadRecord")
         {
             // impossible
         }
