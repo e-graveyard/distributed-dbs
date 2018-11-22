@@ -97,16 +97,16 @@ class Router
 
         while(tries < QUANTITY_OF_SERVERS)
         {
-            if(counter == (QUANTITY_OF_SERVERS - 1))
-                counter = 0;
+            counter++;
+
+            if(counter == QUANTITY_OF_SERVERS)
+                this.counter = 0;
 
             if(servers[counter].isAvailable())
             {
-                counter++;
                 return new Integer(counter);
             }
 
-            counter++;
             tries++;
         }
 
