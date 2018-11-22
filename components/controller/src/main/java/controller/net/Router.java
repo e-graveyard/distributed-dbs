@@ -26,7 +26,21 @@ class Router
     public void checkServersAvailability()
     {
         for(int i = 0; i < servers.length; i++)
-            servers[i].setAvailability(ping(servers[i].getPort()) == null);
+        {
+            Logger.info("Checking availability of server *purple@name*normal.".replace("@name", servers[i].getName()));
+
+            boolean isAvailable = (ping(servers[i].getPort()) != null);
+            servers[i].setAvailability(isAvailable);
+
+            if(isAvailable)
+            {
+                Logger.success("Server available.");
+            }
+            else
+            {
+                Logger.error("Server unavailable.");
+            }
+        }
     }
 
     public void init(Server[] servers)
