@@ -38,7 +38,7 @@ class Database
     {
         try
         {
-            return DriverManager.getConnection(this.url, this.username, this.password);
+            return DriverManager.getConnection(url, username, password);
         }
         catch(SQLException e)
         {

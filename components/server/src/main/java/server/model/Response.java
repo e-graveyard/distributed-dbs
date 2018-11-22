@@ -34,6 +34,6 @@ class Response
 
     public void putData(String key, String value)
     {
-        this.data.put(key, value);
+        data.put(key, value);
     }
 }

@@ -46,7 +46,7 @@ class Connection implements Runnable
         String sender = parsedRequest.getSender();
 
         // Objeto da resposta, inicializa com envelope formado.
-        Responder responder = new Responder(this.server.getName(), sender);
+        Responder responder = new Responder(server.getName(), sender);
 
         switch(parsedRequest.getKind())
         {
@@ -145,10 +145,10 @@ class Connection implements Runnable
 
     public void run()
     {
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(this.client.getOutputStream())))
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream())))
         {
-            String response = this.handle(new Parser(br.readLine()));
+            String response = handle(new Parser(br.readLine()));
 
             bw.write(response.toString());
             bw.flush();
