@@ -53,7 +53,10 @@ class Parser
 
     public boolean isSuccessful()
     {
-        return getKeyAsObject(response, "success").getAsBoolean();
+        if(getKeyAsString(response, "success").equals("true"))
+            return true;
+
+        return false;
     }
 
     public String getSender()
