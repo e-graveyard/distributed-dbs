@@ -29,8 +29,8 @@ class Server
     public Server()
     {
         this.rand = new Random();
-        this.port = this.generateValidPort();
-        this.name = this.generateUniqueName();
+        this.port = generateValidPort();
+        this.name = generateUniqueName();
     }
 
     private String generateUniqueName()
@@ -42,10 +42,10 @@ class Server
             "DOROTHY", "LISA", "NANCY", "DONNA", "MICHELLE"
         };
 
-        int index = this.rand.nextInt(humanNames.length);
+        int index = rand.nextInt(humanNames.length);
 
         String name = humanNames[index];
-        String numb = Integer.toString(this.rand.nextInt(1000000));
+        String numb = Integer.toString(rand.nextInt(1000000));
 
         return (name + "-" + numb);
     }
@@ -55,7 +55,7 @@ class Server
         int port = 0;
         while(port < MIN_PORT_NUMBER)
         {
-            port = this.rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
+            port = rand.nextInt((MAX_PORT_NUMBER - MIN_PORT_NUMBER) + 1) - MIN_PORT_NUMBER;
         }
 
         return port;
@@ -63,17 +63,17 @@ class Server
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public int getPort()
     {
-        return this.port;
+        return port;
     }
 
     public void listen() throws IOException
     {
-        try(ServerSocket socket = new ServerSocket(this.port))
+        try(ServerSocket socket = new ServerSocket(port))
         {
             Runtime.getRuntime().addShutdownHook(
                     new Thread()
