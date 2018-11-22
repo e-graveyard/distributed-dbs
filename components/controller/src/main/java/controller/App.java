@@ -28,7 +28,13 @@ public class App
             Logger.info("I'm controller *purple@name*normal".replace("@name", c.getName()));
 
             Logger.info("Hang tight...");
-            c.discover();
+            boolean okay = c.discover();
+            if(!okay)
+            {
+                Logger.error("Could not discover any available server.");
+                Logger.info("Exiting...");
+                System.exit(1);
+            }
 
             Logger.info("Listening on port *purple@port*normal".replace("@port", port));
             c.listen();
