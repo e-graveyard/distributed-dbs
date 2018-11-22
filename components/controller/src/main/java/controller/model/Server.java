@@ -10,7 +10,7 @@ class Server
     private String name;
     private int port;
 
-    public Balancer(String name, int port)
+    public Server(String name, int port)
     {
         this.name = name;
         this.port = port;
