@@ -6,6 +6,10 @@ package controller;
  */
 
 import java.util.Random;
+import java.io.IOException;
+
+import java.net.Socket;
+import java.net.ServerSocket;
 
 class Controller
 {
@@ -101,8 +105,29 @@ class Controller
         return available;
     }
 
-    public void listen()
+    public void listen() throws IOException
     {
-        Logger.info("Bye-Bye!");
+       try(ServerSocket socket = new ServerSocket(port))
+        {
+            Runtime.getRuntime().addShutdownHook(
+                    new Thread()
+                    {
+                       @Override
+                       public void run()
+                       {
+                           System.out.print("\n");
+                           Logger.warning("SIGINT caught.");
+                           Logger.info("Exiting...");
+
+                           return;
+                       }
+                    });
+
+            while(true)
+            {
+                Socket client = socket.accept();
+                new Thread(new Connection(client, router)).start();
+            }
+        }
     }
 }
