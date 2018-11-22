@@ -11,7 +11,23 @@ public class App
 {
     public static void main(String[] args)
     {
-        Server s = new Server();
+        Server s = null;
+        if(args.length < 1)
+        {
+            s = new Server(null);
+        }
+        else
+        {
+            if(!Input.isArgValid(args))
+            {
+                Logger.info("Exiting...");
+                System.exit(1);
+            }
+            else
+            {
+                s = new Server(Integer.valueOf(args[0]));
+            }
+        }
 
         try
         {
