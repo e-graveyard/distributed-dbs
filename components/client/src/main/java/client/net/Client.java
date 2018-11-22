@@ -29,22 +29,22 @@ class Client
             "DOROTHY", "LISA", "NANCY", "DONNA", "MICHELLE"
         };
 
-        int index = this.rand.nextInt(humanNames.length);
+        int index = rand.nextInt(humanNames.length);
 
         String name = humanNames[index];
-        String numb = Integer.toString(this.rand.nextInt(1000000));
+        String numb = Integer.toString(rand.nextInt(1000000));
 
         return (name + "-" + numb);
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public int getControllerPort()
     {
-        return this.controllerPort;
+        return controllerPort;
     }
 
     public void act()

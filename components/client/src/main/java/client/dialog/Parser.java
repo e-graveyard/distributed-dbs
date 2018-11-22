@@ -25,7 +25,7 @@ class Parser
 
     public boolean isOkay()
     {
-        return this.response != null;
+        return response != null;
     }
 
     private String getKeyAsString(JsonObject obj, String key)

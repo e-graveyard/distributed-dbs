@@ -28,26 +28,26 @@ class Book
 
     public String getTitle()
     {
-        return this.title;
+        return title;
     }
 
     public String getAuthor()
     {
-        return this.author;
+        return author;
     }
 
     public String getPublication()
     {
-        return this.publication;
+        return publication;
     }
 
     public String getIsbn()
     {
-        return this.isbn;
+        return isbn;
     }
 
     public int getPages()
     {
-        return this.pages;
+        return pages;
     }
 }
