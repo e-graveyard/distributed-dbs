@@ -22,10 +22,15 @@ class Server
     private final int MAX_PORT_NUMBER = 65535;
     private final int MIN_PORT_NUMBER = 5000;
 
-    public Server()
+    public Server(Integer port)
     {
         this.rand = new Random();
-        this.port = generateValidPort();
+
+        if(port == null)
+            this.port = generateValidPort();
+        else
+            this.port = port.intValue();
+
         this.name = generateUniqueName();
     }
 
