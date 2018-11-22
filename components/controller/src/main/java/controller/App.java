@@ -36,6 +36,8 @@ public class App
                 System.exit(1);
             }
 
+            c.retry();
+
             Logger.info("Listening on port *purple@port*normal".replace("@port", port));
             c.listen();
         }
