@@ -81,7 +81,6 @@ class Controller
         for(int i = 0; i < len; i++)
         {
             int port = serverPorts[i];
-            Logger.info("Trying to discover server at port *purple@port*normal.".replace("@port", Integer.toString(port)));
 
             String res = router.ping(serverPorts[i]);
             if(res != null)
@@ -89,13 +88,16 @@ class Controller
                 available = true;
 
                 Server s = new Server((new Parser(res)).getSender(), port, true);
-                Logger.success("Server *purple@name*normal were discovered.".replace("@name", s.getName()));
+                Logger.success("Server *purple@name*normal were discovered at port *purple@port*normal."
+                        .replace("@name", s.getName())
+                        .replace("@port", Integer.toString(port)));
 
                 servers[i] = s;
             }
             else
             {
-                Logger.error("Unable to discover. Skipping..");
+                Logger.error("Could not discover server at port *purple@port*normal. Skipping.."
+                        .replace("@port", Integer.toString(port)));
             }
         }
 
