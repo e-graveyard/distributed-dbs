@@ -114,7 +114,7 @@ class Client
                     parsedResponse = requisitor.createBook(title, author, publication, isbn, pages);
                     if(parsedResponse.isOkay())
                     {
-                        Logger.success("Registered!");
+                        Logger.success("Book registered by *purple" + parsedResponse.getSender() + "*normal.");
                     }
                     else
                     {
@@ -136,7 +136,7 @@ class Client
                     parsedResponse = requisitor.readBook(isbn);
                     if(parsedResponse.isOkay())
                     {
-                        Logger.success("Readed!");
+                        Logger.success("Book info readed by *purple" + parsedResponse.getSender() + "*normal.");
                         Interface.drawBookInformation(parsedResponse.toBook());
                     }
                     else
@@ -177,11 +177,11 @@ class Client
                     parsedResponse = requisitor.updateBook(title, author, publication, isbn, pages);
                     if(parsedResponse.isOkay())
                     {
-                        Logger.success("Registered!");
+                        Logger.success("Book info updated by *purple" + parsedResponse.getSender() + "*normal.");
                     }
                     else
                     {
-                        Logger.error("Could not register.");
+                        Logger.error("Could not update.");
                     }
                     break;
 
@@ -199,7 +199,7 @@ class Client
                     parsedResponse = requisitor.deleteBook(isbn);
                     if(parsedResponse.isOkay())
                     {
-                        Logger.success("Deleted!");
+                        Logger.success("Book deleted by *purple" + parsedResponse.getSender() + "*normal.");
                     }
                     else
                     {
