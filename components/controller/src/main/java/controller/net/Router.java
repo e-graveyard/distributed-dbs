@@ -23,6 +23,12 @@ class Router
     private Server[] servers;
     private String pingRequest;
 
+    public void checkServersAvailability()
+    {
+        for(int i = 0; i < servers.length; i++)
+            servers[i].setAvailability(ping(servers[i].getPort()) == null);
+    }
+
     public void init(Server[] servers)
     {
         this.counter = 0;
@@ -41,47 +47,41 @@ class Router
         this.pingRequest = (new Gson().toJson(req));
     }
 
-    private String makeRequest(int port, String payload)
+    public String request(Socket s, String payload)
     {
-        try(Socket socket = new Socket("127.0.0.1", port);
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream())))
+        try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream())))
         {
-            bw.write(payload);
-            bw.write("\n");
-            bw.flush();
+            if(payload != null)
+            {
+                bw.write(payload);
+                bw.write("\n");
+                bw.flush();
+            }
 
             return br.readLine();
         }
-        catch(IOException e)
+        catch(Exception e)
         {
+            e.printStackTrace();
             return null;
         }
     }
 
     public String ping(int port)
     {
-        return makeRequest(port, pingRequest);
-    }
-
-    private void refreshServersAvailabilityStatus()
-    {
-        for(int i = 0; i < servers.length; i++)
-            servers[i].setAvailability(ping(servers[i].getPort()) == null);
-    }
-
-    private boolean areAllServersAvailable()
-    {
-        for(Server s : servers)
+        try(Socket s = new Socket("127.0.0.1", port))
         {
-            if(!s.isAvailable())
-                return false;
+            return request(s, pingRequest);
         }
-
-        return true;
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    private Integer balance()
+    public Integer balance()
     {
         int tries = 0;
 
@@ -100,5 +100,16 @@ class Router
         }
 
         return null;
+    }
+
+    public boolean areAllServersAvailable()
+    {
+        for(Server s : servers)
+        {
+            if(!s.isAvailable())
+                return false;
+        }
+
+        return true;
     }
 }
