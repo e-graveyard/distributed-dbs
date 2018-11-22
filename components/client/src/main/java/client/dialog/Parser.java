@@ -25,7 +25,10 @@ class Parser
 
     public boolean isOkay()
     {
-        return response != null;
+        if(response == null)
+            return false;
+
+        return isSuccessful();
     }
 
     private String getKeyAsString(JsonObject obj, String key)
@@ -46,6 +49,11 @@ class Parser
     private JsonObject getEnvelope()
     {
         return getKeyAsObject(response, "envelope");
+    }
+
+    public boolean isSuccessful()
+    {
+        return getKeyAsObject(response, "success").getAsBoolean();
     }
 
     public String getSender()
