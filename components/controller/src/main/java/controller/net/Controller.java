@@ -105,6 +105,11 @@ class Controller
         return available;
     }
 
+    public void retry()
+    {
+        new Thread(new Retry(router, 15)).start();
+    }
+
     public void listen() throws IOException
     {
        try(ServerSocket socket = new ServerSocket(port))
