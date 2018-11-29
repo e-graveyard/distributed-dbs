@@ -27,9 +27,5 @@ run:
 	cd components/$(target)/target && \
 		java -cp $(target)-*.jar $(target).App $(filter-out $@, $(MAKECMDGOALS))
 
-start:
-	cd components/$(target) && \
-		mvn compile exec:java -Dexec.mainClass="$(target).App"
-
 %:
 	@:
